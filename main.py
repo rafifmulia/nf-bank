@@ -74,6 +74,9 @@ def chooseMenu (inputMenu):
   elif (inputMenu == '4'):
     transfer()
     return 'match'
+  elif (inputMenu == '5'):
+    cekTransaksi()
+    return 'match'
   elif (inputMenu == '6'):
     return 'exit'
   else:
@@ -214,6 +217,35 @@ def transfer():
     file.close()
     print()
     
+def cekTransaksi():
+  print('** LIHAT DATA TRANSFER **')
+  norek = input('Masukkan nomor rekening: ')
+  nb = open("nasabah.txt", 'r')
+  b = False
+  for a in nb:
+      z = a.strip('\n').split(',')
+      if (norek.upper() == z[0]):
+          b = True
+  if b == False:
+      print('No rekening tidak ditemukan')
+      return False
+
+  tf = open("transfer.txt", 'r')
+  val = []
+
+  for transaksi in tf:
+      # [0]==Kode Transfer, [1]==Rekening Sumber, [2]=Rekening Tujuan, [3]=Nominal Transfer
+      log = transaksi.strip('\n').split(',')
+      if (norek.upper() == log[1]):
+          val.append(log)
+  if (len(val) > 0):
+      for x in val:
+          print(x[0], x[1], x[2], x[3])
+  else:
+      print('Tidak ada data yang ditampilkan')
+  tf.close()
+  return val
+
 # try:
 while run:
   printMenu()
