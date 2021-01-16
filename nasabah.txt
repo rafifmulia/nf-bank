@@ -1,4 +1,5 @@
-REK973,rafif,8000,
-REK607,alfi,12000,
+REK973,rafif,7999,
+REK607,alfi,12001,
 REK193,intan,5000,
 REK979,ekky,15000,
+REK604,test,1000,
