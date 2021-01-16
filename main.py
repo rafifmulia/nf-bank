@@ -67,6 +67,9 @@ def chooseMenu (inputMenu):
   elif (inputMenu == '2'):
     setoranTunai()
     return 'match'
+  elif (inputMenu == '3'):
+    tarik()
+    return 'match'
   elif (inputMenu == '6'):
     return 'exit'
   else:
@@ -93,6 +96,38 @@ def setoranTunai ():
   else:
     print('Nomor rekening tidak terdaftar. Setoran tunai gagal.')
 
+def tarik():
+    print("*** TARIK TUNAI ***")
+    norek = input('Masukkan nomor rekening: ')
+    saldo = input('Masukkan nominal yang akan ditarik: ')
+
+    result = tarikTunai(norek, saldo)
+    if (result == '200'):
+      print('Tarik tunai sebesar {} dari rekening {} berhasil.'.format(saldo, norek.upper()))
+    elif (result == '400'):
+      print('Saldo tidak mencukupi. Tarik tunai gagal.')
+    else:
+      print('Nomor rekening tidak terdaftar. Tarik tunai gagal.')
+
+def tarikTunai(norek, saldo):
+    nasabahs = listNasabah()
+    f = open(dbNasabah, 'w')
+    val = '500'
+    saldo = int(saldo)
+    for nasabah in nasabahs:
+      nasabah = nasabah.strip('\n').split(',') # [0]==norek, [1]==nama, [2]=saldo
+      if (norek.upper() == nasabah[0]):
+        if (int(nasabah[2]) < saldo):
+          f.write(f'{nasabah[0]},{nasabah[1]},{nasabah[2]}\n')
+          val = '400'
+        else:
+          f.write(f'{nasabah[0]},{nasabah[1]},{int(nasabah[2])-saldo}\n')
+          val = '200'
+      else:
+        f.write(f'{nasabah[0]},{nasabah[1]},{nasabah[2]}\n')
+    f.close()
+    return val
+    
 # try:
 while run:
   printMenu()
