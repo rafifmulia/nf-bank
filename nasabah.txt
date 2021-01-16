@@ -1,4 +1,4 @@
-REK973,rafif,1123
-REK607,alfi,123
-REK193,intan,123
-REK979,ekky,123
+REK973,rafif,8000,
+REK607,alfi,12000,
+REK193,intan,5000,
+REK979,ekky,15000,
